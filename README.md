@@ -40,3 +40,7 @@ To add the blob ids to
 	L Error: Job 'node_exporter' not found in Template table
 This often occurs when an incorrect version of the release is deployed. Check the if the version you are deploing contains the mentioned job.   
 If your deployment is pointing to the version `latest`, make sure the director doesn't have a higher version of your release than you create.
+
+### Colocated job is already added to instance group
+	L Error: Colocated job ‘node_exporter’ is already added to the instance group ‘postgres’.
+Check the runtime configuration. The mentioned job will run on all VMs.
