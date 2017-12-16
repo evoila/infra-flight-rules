@@ -44,3 +44,25 @@ If your deployment is pointing to the version `latest`, make sure the director d
 ### Colocated job is already added to instance group
 	L Error: Colocated job ‘node_exporter’ is already added to the instance group ‘postgres’.
 Check the runtime configuration. The mentioned job will run on all VMs.
+
+### Bad file descriptor
+Trying to upload release and getting: 
+
+```shell
+Uploading release file:
+  Performing request POST 'https://172.16.106.4:25555/releases?':
+    Performing POST request:
+      Seeking to beginning of seekable request body during attempt 0: seek /root/.bosh/tmp/bosh-platform-disk-TarballCompressor-CompressSpecificFilesInDir232448384: bad file descriptor
+```
+
+Actual problem: environment variables for Bosh director not set:
+
+```shell
+Exit code 1
+root@host:/workspace/releases/osb-bosh-postgresql# bosh vms
+Expected non-empty Director URL
+
+Exit code 1
+Check the runtime configuration. The mentioned job will run on all VMs
+```
+Solution: login
