@@ -66,3 +66,27 @@ Exit code 1
 Check the runtime configuration. The mentioned job will run on all VMs
 ```
 Solution: login
+
+### Credhub cannot generate password
+```shell
+Preparing deployment: Preparing deployment (00:00:01)
+                   L Error: Config Server failed to generate value for '/Bosh Lite Director/kubo/kubo-admin-password' with type 'password'. Error: ''
+Task 15 | 21:30:09 | Error: Config Server failed to generate value for '/Bosh Lite Director/kubo/kubo-admin-password' with type 'password'. Error: ''
+````
+
+It turns out that the path for credhub is not allowed to contain spaces:
+
+````shell
+horst:kubo-deployment jhiemer$ credhub generate -n '/Bosh Lite Director/kubo/kubo-admin-password' -t 'password'
+Credential names may only include alpha, numeric, hyphen, underscore, and forward-slash characters. Please update and retry your request.
+````
+Works:
+
+````shell
+horst:kubo-deployment jhiemer$ credhub generate -n '/BoshLiteDirector/kubo/kubo-admin-password' -t 'password'
+id: f829e692-d98e-400e-8b14-9ac20d558c81
+name: /BoshLiteDirector/kubo/kubo-admin-password
+type: password
+value: *******************
+version_created_at: 2017-12-30T21:50:33Z
+````
