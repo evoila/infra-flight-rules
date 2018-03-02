@@ -90,3 +90,14 @@ type: password
 value: *******************
 version_created_at: 2017-12-30T21:50:33Z
 ````
+### Script not working (e.g. pre-start script)
+```shell
+Updating instance my-instances: my-instances/0d08eec9-9d4e-4507-b4fe-ba0b7b20f628 (0) (canary) (00:00:14)
+L Error: Action Failed get_task: Task 3a65c031-3bd6-4cae-44cc-ab7cdc58e871 result: 1 of 2 pre-start scripts failed. Failed Jobs: my-cool-job. Successful Jobs: bosh-dns.
+````
+
+In most cases, this means you missed to switch to bash at the start of your script. Add the following to the beginning of your script and all works out well...
+
+```shell
+#!/usr/bin/env bash
+````
