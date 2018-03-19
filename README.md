@@ -101,3 +101,57 @@ In most cases, this means you missed to switch to bash at the start of your scri
 ```shell
 #!/usr/bin/env bash
 ````
+### Getting blob from inner blobstore (though it is a package..)
+```shell
+-- Failed downloading 'erlang/dbcae8592bdecbf4d89b02e2bc18222ff3a41bdd' (sha1=b9c568a1dfde2860501f36e6174da2b58f4f483d)
+
+
+-- Failed downloading 'rabbitmq-server/12e135fad7a59bfcf017ab297403ebe1587c81c8' (sha1=bdef8803fc5f4094c2bbde9bb94cc9731c030095)
+
+
+-- Failed downloading 'rabbitmq-common/9232e8ac16db2e9a2fa8d65aaca25c3c69b1b17f' (sha1=7b7a3f080eaaa3d6cde0cd7fc00631761cc058d0)
+
+
+-- Failed downloading 'rabbitmq-server/696215db5554d02c647acbd8c7f5b6f6ce8509c0' (sha1=49f96f0678fcddcc08ab72c277dbc3fa930ddb12)
+
+
+-- Failed downloading 'smoke-tests/1d60f612faac462576d37c879b7d552523ea47fe' (sha1=c3b6288109951727b9b60fbaf8ff7db2e02d0e80)
+
+
+Building a release from directory '/Users/johanneshiemer/Development/osb-framework/bosh/osb-bosh-rabbitmq':
+  - Downloading blob '35aeb965-ca9e-4f75-787f-463d968cde3a' with digest string 'b9c568a1dfde2860501f36e6174da2b58f4f483d':
+      Getting blob from inner blobstore:
+        Getting blob from inner blobstore:
+          NoSuchKey: The specified key does not exist.
+        status code: 404, request id: B9589CF4A8670C06, host id: PIFDeFSFJvPbVtouTlVuavI4L36MOH4RyamftqfsYc4SLSdDqrcTmzq65HAefhVPKWjKZTW8Q+E=
+  - Downloading blob 'bbfaf028-2252-44ee-749d-09f0369ff53c' with digest string 'bdef8803fc5f4094c2bbde9bb94cc9731c030095':
+      Getting blob from inner blobstore:
+        Getting blob from inner blobstore:
+          NoSuchKey: The specified key does not exist.
+        status code: 404, request id: 249B4CB372E6CABB, host id: Mcw5ivUreKfyJQIuKpYIYvKoVgS6s0FXTx8YPHHy1mbHgL9Kwyjs60l8qPmePxA1ZCQD2E2Zd/I=
+  - Downloading blob 'e1cd036e-168f-4587-4072-18e182785bd2' with digest string '7b7a3f080eaaa3d6cde0cd7fc00631761cc058d0':
+      Getting blob from inner blobstore:
+        Getting blob from inner blobstore:
+          NoSuchKey: The specified key does not exist.
+        status code: 404, request id: 4D433D8E6790E85A, host id: VZP2hUiY1yxD+7/XleE73FvKEbBuZNyYJQwIyGS3wrPYqDNoado4D9BHurB01KIWPVy4NXXNNTs=
+  - Downloading blob '2ed93f00-e3fa-499c-53e0-82373d6b2d05' with digest string '49f96f0678fcddcc08ab72c277dbc3fa930ddb12':
+      Getting blob from inner blobstore:
+        Getting blob from inner blobstore:
+          NoSuchKey: The specified key does not exist.
+        status code: 404, request id: 376EC8EE47564623, host id: bJmKhs3zlt2r++Nrams7NOZ2YXafj9/g7fmmx6wzLlETuEQIrnZrwGY/Aj5mIQaAumLWvrukAew=
+  - Downloading blob '9d79b054-48f6-40f5-5934-ac62dae19ef9' with digest string 'c3b6288109951727b9b60fbaf8ff7db2e02d0e80':
+      Getting blob from inner blobstore:
+        Getting blob from inner blobstore:
+          NoSuchKey: The specified key does not exist.
+        status code: 404, request id: 4823E8F84D6B904C, host id: 1+8idwXlGDNLnB6nQ7TWDSeu1vtb2JyTucP5QnbCM/tl5H/DW+RSJql7HlHfp3eslO+SiY40n6o=
+
+Exit code 1
+```
+
+Yes this might be an inner blobstore. And it is the blobstore of your release, which you can find under `.final_builds` in the root of your release.
+
+Just run:
+
+`rm -r .final_builds/`
+
+And you should be able to run `bosh create-release --force` again
